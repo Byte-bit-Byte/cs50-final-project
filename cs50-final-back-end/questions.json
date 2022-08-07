@@ -1,0 +1,167 @@
+{
+	"1":{
+		"id": "1",
+		"prompt": "If each lightbulb is a bit of information, what is the maximum amount of data that can be conveyed in a message by the lights on the stage?",
+		"options": {
+			"0": "8 Nibbles",
+			"1": "32 Bits",
+			"2": "128 Bits",
+			"3": "8 Bytes"
+		},
+		"answer": "3"	
+	},
+	"2":{
+		"id": "2",
+		"prompt": "What is the hidden message of week 10 in CS50 2021?",
+		"options": {
+			"0": "🩸",
+			"1": "😂",
+			"2": "❤",
+			"3": "💡"
+		},
+		"answer": "2"	
+	},
+	"3":{
+		"id": "3",
+		"prompt": "What is the hidden message of week 7 Cyber Security in CS50 2021?",
+		"options": {
+			"0": "HI DADS",
+			"1": "HI MOMS",
+			"2": "SEGFAULT",
+			"3": "BE SAFE"
+		},
+		"answer": "1"	
+	},
+	"4":{
+		"id": "4",
+		"prompt": "What is the hidden message of week 3 in CS50 2021?",
+		"options": {
+			"0": "DPSSFDU",
+			"1": "QUACK",
+			"2": "ENHANCE",
+			"3": "CORRECT"
+		},
+		"answer": "0"	
+	},
+	"5":{
+		"id": "5",
+		"prompt": "What is the hidden message of week 9 in CS50 2021?",
+		"options": {
+			"0": "</html>",
+			"1": "hello.py",
+			"2": "<html>",
+			"3": "ENHANCE"
+		},
+		"answer": "0"	
+	},
+	"6":{
+		"id": "6",
+		"prompt": "What does the hidden message under this website's logo translate to",
+		"options": {
+			"0": "THIS IS CS50",
+			"1": "CS50 LIGHTS",
+			"2": "HI CS50",
+			"3": "CS50 RULES"
+		},
+		"answer": "1"	
+	},
+	"7":{
+		"id": "7",
+		"prompt": "What is the hidden message of week 0 in CS50 2021?",
+		"options": {
+			"0": "CORRECT",
+			"1": "CAT CAT",
+			"2": "SCRATCH",
+			"3": "HI MOM"
+		},
+		"answer": "3"	
+	},
+	"8":{
+		"id": "8",
+		"prompt": "What is the hidden message of week 6 in CS50 2021?",
+		"options": {
+			"0": "</html>",
+			"1": "hello.py",
+			"2": "<html>",
+			"3": "ENHANCE"
+		},
+		"answer": "1"	
+	},
+	"9":{
+		"id": "9",
+		"prompt": "What is the hidden message of week 2 in CS50 2021?",
+		"options": {
+			"0": "HI MOM",
+			"1": "DUCK",
+			"2": "QUACK",
+			"3": "DPSSFDU"
+		},
+		"answer": "2"	
+	},
+	"10":{
+		"id": "10",
+		"prompt": "What is the hidden message of week 7 in CS50 2021?",
+		"options": {
+			"0": "BOOOOO",
+			"1": "SEGFAULT",
+			"2": "HI MOMS",
+			"3": "BOOOOOOO"
+		},
+		"answer": "3"	
+	},
+	"11":{
+		"id": "11",
+		"prompt": "How many light bulbs are there on the stage of CS50 2021?",
+		"options": {
+			"0": "42",
+			"1": "69",
+			"2": "64",
+			"3": "60"
+		},
+		"answer": "2"	
+	},
+	"12":{
+		"id": "12",
+		"prompt": "What is the hidden message of week 1 in CS50 2021?",
+		"options": {
+			"0": "CORRECT",
+			"1": "DPSSFDU",
+			"2": "SEGFAULT",
+			"3": "ENHANCE"
+		},
+		"answer": "0"	
+	},
+	"13":{
+		"id": "13",
+		"prompt": "What is the hidden message of week 5 in CS50 2021?",
+		"options": {
+			"0": "CORRECT",
+			"1": "DPSSFDU",
+			"2": "SEGFAULT",
+			"3": "ENHANCE"
+		},
+		"answer": "2"	
+	},
+	"14":{
+		"id": "14",
+		"prompt": "What is the hidden message of week 8 in CS50 2021?",
+		"options": {
+			"0": "</html>",
+			"1": "hello.py",
+			"2": "<html>",
+			"3": "ENHANCE"
+		},
+		"answer": "2"	
+	},
+	"15":{
+		"id": "15",
+		"prompt": "What is the hidden message of week 4 in CS50 2021?",
+		"options": {
+			"0": "DPSSFDU",
+			"1": "QUACK",
+			"2": "ENHANCE",
+			"3": "CORRECT"
+		},
+		"answer": "2"	
+	}
+}
