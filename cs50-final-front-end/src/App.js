@@ -1,4 +1,6 @@
+// All the imports for the libraries and components used in creating the website front end
 import React, { Component } from 'react';
+import './App.css';
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import Navigation from './components/Navigation/Navigation';
@@ -8,7 +10,6 @@ import Logo from './components/Logo/Logo';
 import Footer from './components/Footer/Footer';
 import Rank from './components/Rank/Rank';
 import Quiz from './components/Quiz/Quiz';
-import './App.css';
 import WeekSelect from './components/WeekDisplay/WeekSelect';
 import WeekTemplate from './components/WeekDisplay/WeekTemplate';
 
@@ -82,9 +83,6 @@ const particlesOptions = {
 
 // The initial state of the application
 const initialState = {
-  input: '',
-  imageUrl: '',
-  box: {},
   route: 'home',
   isSignedIn: false,
   user: {
@@ -100,7 +98,9 @@ const initialState = {
   comment: ''
 }
 
+// The creation of the class object for the App
 class App extends Component {
+  // Defines initial state and binds functions to this
   constructor() {
     super();
     this.state = initialState;
@@ -121,7 +121,7 @@ class App extends Component {
     });
   }
 
-// Makes calls to the back end API to retrieve week data
+  // Makes calls to the back end API to retrieve week data
   handleData(id){
     fetch(`http://localhost:3001/weekData/${id}`)
       .then(response => response.json())
@@ -136,20 +136,21 @@ class App extends Component {
     });
   }
 
-// Loads a default image when page first loads
+  // Loads a default image when page first loads
   componentDidMount(){
     this.handleImage("Welcome");
   }  
 
-// Handles changes in the week selection drop down menu
-// The idea for the fetch call was found from stack overflow
-// https://stackoverflow.com/questions/46002113/javascript-reactjs-display-image-with-readablestream-as-source
+  // Handles changes in the week selection drop down menu
+  // The idea for the fetch call was found from stack overflow
+  // https://stackoverflow.com/questions/46002113/javascript-reactjs-display-image-with-readablestream-as-source
   handleChange(event){
     console.log(event.target.value);
     this.handleImage(event.target.value);
     this.handleData(event.target.value);
   }
 
+  // Loads users data after sign in, given to relevant components
   loadUser = (data) => {
     this.setState({user: {
       id: data.id,
@@ -159,61 +160,7 @@ class App extends Component {
     }})
   }
 
-  calculateFaceLocation = (data) => {
-    const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
-    const image = document.getElementById('inputimage');
-    const width = Number(image.width);
-    const height = Number(image.height);
-    return {
-      leftCol: clarifaiFace.left_col * width,
-      topRow: clarifaiFace.top_row * height,
-      rightCol: width - (clarifaiFace.right_col * width),
-      bottomRow: height - (clarifaiFace.bottom_row * height)
-    }
-  }
-
-  displayFaceBox = (box) => {
-    this.setState({box: box});
-  }
-
-  onInputChange = (event) => {
-    this.setState({input: event.target.value});
-  }
-
-// http://localhost:3001
-// https://cryptic-beyond-55129.herokuapp.com/
-  onButtonSubmit = () => {
-    this.setState({imageUrl: this.state.input});
-      fetch('http://localhost:3001/imageurl', {
-        method: 'post',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          input: this.state.input
-        })
-      })
-      .then(response => response.json())
-      .then(response => {
-        if (response) {
-          fetch('http://localhost:3001/image', {
-            method: 'put',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-              id: this.state.user.id
-            })
-          })
-            .then(response => response.json())
-            .then(count => {
-              this.setState(Object.assign(this.state.user, { entries: count}))
-            })
-            .catch(console.log)
-
-        }
-        this.displayFaceBox(this.calculateFaceLocation(response))
-      })
-      .catch(err => console.log(err));
-  }
-
-  // Controls the routing function for navigation, signin and signout
+  // Controls the routing function for App to display specific components
   onRouteChange = (route) => {
     if (route === 'signout') {
       this.setState(initialState)
@@ -223,34 +170,46 @@ class App extends Component {
     this.setState({route: route});
   }
 
+  // Render function containing actual App Components
   render() {
+    // De-reference all needed state variables
     const { isSignedIn, route, src, name, binary, english, comment, user } = this.state;
-    const particlesInit = async (main) => {
-    // console.log(main);
 
-    // you can initialize the tsParticles instance (main) here, adding custom shapes or presets
-    // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
-    // starting from v2 you can add only the features you need reducing the bundle size
+    // ts-particles initialize function
+    const particlesInit = async (main) => {
     await loadFull(main);
     };
 
-  const particlesLoaded = (container) => {
-    // console.log(container);
-  };
+    // ts-particles container
+    // more info
+    // https://www.npmjs.com/package/react-tsparticles
+    const particlesLoaded = (container) => {
+    };
 
+    // Return function for App
     return (
       <div className="App">
-         <Particles 
+        {/*Loads the particles in the background*/}
+        <Particles 
           className='particles'
           id="tsparticles"
           init={particlesInit}
           loaded={particlesLoaded}
           options={particlesOptions}
         />
+
+        {/*Loads the Logo and Navigation component always*/}
         <div className="cf ph2-ns">
           <Logo />
-          <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange} />
+          <Navigation 
+            isSignedIn={isSignedIn} 
+            onRouteChange={this.onRouteChange} 
+          />
         </div>
+
+        {/*Logic for displaying components based on route*/}
+        {/*First check for home, then signin, then quiz,*/}
+        {/*then rank and if none of the above load register*/}
         { route === 'home'
           ? <div className='tc'  style={{overflow: 'hidden'}}>
               <h1 className='f1'>THIS IS CS50 Lights</h1>
@@ -265,32 +224,33 @@ class App extends Component {
             </div>
           : (
              route === 'signin'
-             ? <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+             ? <Signin 
+                  loadUser={this.loadUser} 
+                  onRouteChange={this.onRouteChange}
+                />
              : (
                 route === 'quiz'
-                ? <Quiz onRouteChange={this.onRouteChange} user={user}/>
+                ? <Quiz 
+                    onRouteChange={this.onRouteChange} 
+                    user={user}
+                  />
                 : (
                     route === 'rank'
                     ? <Rank user={user} />
-                    : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+                    : <Register l
+                        oadUser={this.loadUser} 
+                        onRouteChange={this.onRouteChange}
+                      />
                   )
                )
             )
         }
+
+        {/*Loads the Footer component always*/}
         <Footer />
       </div>
     );
   }
 }
 
-export default App;
-
-//<div>
-//  <Rank
-//    name={this.state.user.name}
-//  />
-//  <ImageLinkForm
-//    onButtonSubmit={this.onButtonSubmit}
-//  />
-//  <FaceRecognition box={box} imageUrl={imageUrl} />
-//</div>
+export default App; //Export statement for App Class
