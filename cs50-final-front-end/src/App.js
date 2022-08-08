@@ -3,15 +3,15 @@ import React, { Component } from 'react';
 import './App.css';
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
-import Navigation from './components/Navigation/Navigation';
-import Signin from './components/Signin/Signin';
-import Register from './components/Register/Register';
-import Logo from './components/Logo/Logo';
-import Footer from './components/Footer/Footer';
-import Rank from './components/Rank/Rank';
-import Quiz from './components/Quiz/Quiz';
-import WeekSelect from './components/WeekDisplay/WeekSelect';
-import WeekTemplate from './components/WeekDisplay/WeekTemplate';
+import Navigation from './components/Navigation';
+import Signin from './components/Signin';
+import Register from './components/Register';
+import Logo from './components/Logo';
+import Footer from './components/Footer';
+import Rank from './components/Rank';
+import Quiz from './components/Quiz';
+import WeekSelect from './components/WeekSelect';
+import WeekTemplate from './components/WeekTemplate';
 
 // The options to display all the fancy particles 
 const particlesOptions = {
@@ -126,7 +126,6 @@ class App extends Component {
     fetch(`http://localhost:3001/weekData/${id}`)
       .then(response => response.json())
       .then(data => {
-        // console.log(data);
         this.setState({
           name: data["name"],
           binary: data["binary"],
@@ -145,7 +144,6 @@ class App extends Component {
   // The idea for the fetch call was found from stack overflow
   // https://stackoverflow.com/questions/46002113/javascript-reactjs-display-image-with-readablestream-as-source
   handleChange(event){
-    console.log(event.target.value);
     this.handleImage(event.target.value);
     this.handleData(event.target.value);
   }
@@ -237,8 +235,8 @@ class App extends Component {
                 : (
                     route === 'rank'
                     ? <Rank user={user} />
-                    : <Register l
-                        oadUser={this.loadUser} 
+                    : <Register 
+                        loadUser={this.loadUser} 
                         onRouteChange={this.onRouteChange}
                       />
                   )
