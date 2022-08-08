@@ -1,6 +1,9 @@
-// const questionService = require('../service/questions');
+// Imports the file system library
 const fs = require('fs');
 
+// Recieve the request for the question data 
+// Parse the questions.json file
+// Serve the data from the json file back as a response
 class QuestionController {
 	async getQuestions(req, res) {
 		fs.promises.readFile("questions.json")
@@ -16,15 +19,3 @@ class QuestionController {
 }
 
 module.exports = new QuestionController;
-
-// class PersonController {
-// 	async createPerson(req, res) {
-// 		try {
-// 			const id = await personService.createPerson(req.body);
-// 			res.status(200).json(id);
-// 		} catch (err) {
-// 			console.error(err);
-// 			res.status(500).json("something went wrong")
-// 		}
-// 	}
-// }

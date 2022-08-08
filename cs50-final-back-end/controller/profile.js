@@ -1,5 +1,10 @@
+// Imports the profile service object
 const profileService = require('../service/profile');
 
+// Creates the profile controller class object
+// It profides the user id parameter to the service layer to process
+// Recives back an array of length 1 containing user data
+// Provides the user data as a response if no error occurs
 class ProfileController {
   async getProfile(req, res) {
     const { id } = req.params;
