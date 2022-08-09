@@ -26,12 +26,12 @@ class Question extends Component{
             <input  
               type="radio"
               className="radio"  
-              id={key} 
+              id={id + '-' + key} 
               name={id} 
               value={key}
               onChange={handleChange} />
             <label 
-              htmlFor={key} 
+              htmlFor={id + '-' + key} 
               className="lh-copy">
                 {options[key]}
             </label>
