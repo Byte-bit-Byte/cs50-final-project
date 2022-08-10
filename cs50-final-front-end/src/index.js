@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-// import registerServiceWorker from './registerServiceWorker';
 import 'tachyons';
 
-ReactDOM.render(<App />, document.getElementById('root'));
-// registerServiceWorker();
+const serverURL = 'http://localhost:3001';
+ReactDOM.render(<App server={serverURL} />, document.getElementById('root'));

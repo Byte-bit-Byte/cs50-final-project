@@ -16,7 +16,7 @@ class Rank extends Component{
   // Once the component is loaded
   // Stores them in state for use later
   componentDidMount(){
-      fetch('http://localhost:3001/rank', {
+      fetch(`${this.props.server}/rank`, {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({

@@ -114,7 +114,7 @@ class App extends Component {
     if (id !== "Welcome") {
       id = `Week ${id}`;
     }
-    fetch(`http://localhost:3001/images/${id}.png`)
+    fetch(`${this.props.server}/images/${id}.png`)
       .then(response => response.blob())
       .then(blob => {
           this.setState({ src: URL.createObjectURL(blob) })
@@ -123,7 +123,7 @@ class App extends Component {
 
   // Makes calls to the back end API to retrieve week data
   handleData(id){
-    fetch(`http://localhost:3001/weekData/${id}`)
+    fetch(`${this.props.server}/weekData/${id}`)
       .then(response => response.json())
       .then(data => {
         this.setState({
@@ -225,19 +225,25 @@ class App extends Component {
              ? <Signin 
                   loadUser={this.loadUser} 
                   onRouteChange={this.onRouteChange}
+                  server={this.props.server}
                 />
              : (
                 route === 'quiz'
                 ? <Quiz 
                     onRouteChange={this.onRouteChange} 
                     user={user}
+                    server={this.props.server}
                   />
                 : (
                     route === 'rank'
-                    ? <Rank user={user} />
+                    ? <Rank 
+                        user={user}
+                        server={this.props.server}
+                      />
                     : <Register 
                         loadUser={this.loadUser} 
                         onRouteChange={this.onRouteChange}
+                        server={this.props.server}
                       />
                   )
                )

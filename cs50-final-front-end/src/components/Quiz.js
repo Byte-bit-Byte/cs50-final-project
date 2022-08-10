@@ -18,7 +18,7 @@ class Quiz extends Component{
 
   // Fetches question data on component mounting
   componentDidMount(){
-    fetch(`http://localhost:3001/questions/`)
+    fetch(`${this.props.server}/questions/`)
       .then(response => response.json())
       .then(data => {
         this.setState({
@@ -31,7 +31,7 @@ class Quiz extends Component{
   // Reroutes to rank component on submit
   onSubmit(event){
     event.preventDefault();
-    fetch('http://localhost:3001/quiz', {
+    fetch(`${this.props.server}/quiz`, {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({

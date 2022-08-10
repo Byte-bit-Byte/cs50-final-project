@@ -36,5 +36,3 @@ class WeekTemplate extends Component{
 }
 
 export default WeekTemplate;
-
-

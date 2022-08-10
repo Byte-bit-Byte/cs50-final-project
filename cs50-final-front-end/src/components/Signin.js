@@ -24,7 +24,7 @@ class Signin extends React.Component {
   // Loads user data based on server response
   // Redirects to Quiz page once confirmed
   onSubmitSignIn = () => {
-    fetch('http://localhost:3001/signin', {
+    fetch(`${this.props.server}/signin`, {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({

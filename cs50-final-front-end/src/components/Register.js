@@ -28,7 +28,7 @@ class Register extends React.Component {
   // pushes the register data to the API for processing
   // recieves the response and redirects to quiz page
   onSubmitRegister = () => {
-    fetch('http://localhost:3001/register', {
+    fetch(`${this.props.server}/register`, {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({

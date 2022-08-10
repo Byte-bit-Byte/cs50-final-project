@@ -20,9 +20,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/', router);
 
 
-const PORT = 3001;
-// const PORT = process.env.PORT;
+const PORT = process.env.PORT;
 
-app.listen(PORT || 3000, ()=> {
+app.listen(PORT || 8080, ()=> {
   console.log(`app is running on port ${PORT}`);
 })
