@@ -18,30 +18,39 @@ The API architecture used for the CS50 Lights back end server was largely based 
 The project was created with mostly JavaScript and it can be broken into three broad sections. 
 - The Front End which is created using the front end library React.js. 
 - The back end which is created using Express.js library.
-- The database which is created using PostgreSQL, but can easily be modified to a different database because of the use of the knex.js library. The database itself is not part of the project files. 
+- The database which is created using PostgreSQL, but can easily be modified to a different database because of the use of the knex.js library. **The database itself is not part of the project files**. 
 
 I will discuss each section in more detail below.
 
 ## Front End App Details
-The front end of the application was created using the React.js front end library because of how fast and convenient. I will first describe the different aspects of the application that a user can experience when opening the website. Then I will describe how each of the different components of the website were designed and how they function.
+The front end of the application was created using the React.js front end library because of how fast and convenient it is to use. I will first describe the different aspects of the application that a user can experience when opening the website. Then I will describe how each of the different components of the website were designed and how they function.
 
 ### User Experience
-The first thing a user sees when opening the CS50 lights website is a brightly colored application with a red to yellow gradient across the background. The gradient is in addition to the moving particles that at responsive to any interactions with the screen.
+The first thing a user sees when opening the CS50 lights website is a brightly colored application with a red to yellow gradient across the background. In addition to that there are moving particles that are responsive to any interactions with the screen also in the background.
 
 There is a logo in the top left corner of the screen with a hidden message below it and the then the navigation is either to the right of the logo or below it depending on the width of the screen.
-At the bottom of the page the footer contains useful links to the CS50 YouTube website where all the images are sourced from. The medium article that was mentioned earlier. A link to the Git Hub Repository for the project and a link for the source of the website logo.
+At the bottom of the page is the footer, which contains useful links to the CS50 YouTube website where all the images are sourced from, the medium article that was mentioned earlier, a link to the Git Hub Repository for the project and a link for the source of the website logo.
 
-The home page loads up with a welcome image to the website. Then the user can select any of the weeks from CS50x 2022 from Week 0 to Week 10 and have an image of the stage displayed showing the lights below. As well as the binary representation of the lights and the translation. I added a comment for each to give my insight into what I thought the messages were referencing.
+The home page loads up with a welcome image to the website. Then the user can select any of the weeks from CS50x 2022 from Week 0 to Week 10 and have an image of the stage displayed showing the lights below. As well as the binary representation of the lights and the translation. I added a comment for each week to give my insight into what I thought the messages were referencing.
 
-Once a new user is satisfied with exploring the information of all the weeks they can register by clicking on "Register" from the navigation bar. This would redirect them to a registration page that requests a name, email and password. The email validation is done only at the front end because I did not deem the application critical enough for any extra measures. Therefore, any 'string@string.string' would satisfy the email requirements. I actually **DO NOT** recommend people use their actual emails to sign up for this.
+Once a new user is satisfied with exploring the information of all the weeks, they can register by clicking on "Register" from the navigation bar. This would redirect them to a registration page that requests a name, email and password. The email validation is done only at the front end because I did not deem the application critical enough for any extra measures. Therefore, any 'string@string.string' would satisfy the email requirements. I actually **DO NOT** recommend people use their actual emails to sign up for this.
 
 Once registered, the user is automatically redirected to a quiz page regardless of if they were ready for it or not. There are 15 questions in the quiz focused mainly on what the hidden messages were for each of the weeks displayed on the home page. There are a few additional questions I added to complete a set of 15.
 
 When a user completes and submits the quiz, the responses are sent to the back end for grading. And since the questions are relatively easy, there is no direct feedback provided. The user is instead redirected to a rank page where a leader board is displayed showing the users with the highest scores obtained using the least quiz attempts. Below the leader board is a display of the scores from the last 5 quiz attempts for the logged in user.
 
-The User can use the "Sign Out" function to log out from their credentials. They can also sign back in from the home page using the "Sign In" link if they already have an account created. On sign out the user is redirected to the registration page by default.
+The User can use the "Sign Out" function to log out from their credentials. They can also sign back in from the home page using the "Sign In" link if they already have an account created. On sign out, the user is redirected to the registration page by default.
 
 ### Front End App Structure
+In order to run the front end application Nodejs is required. By default after creating the React app using npm three folders are generated; node_modules, public and src. Most of the design for the application is done within src, I was able to add the application logo to the tab of the web page within the public folder, and the node_modules folder is managed by the package manager like npm or yarn. I'll discuss the src folder in more detail below. Within src there are two js files with their corresponding css files, as well as a components folder. 
+
+If I consider the application as a pyramid, i.e. with a wide base that tapers to the top, then the index.js can be considered as the lowest level for the front end application. The index file contains App.js and the is where the css library 'tachyons' is imported. Tachyons is used extensively through out the front end for styling and its use was inspired by the Zero To Mastery course mentioned earlier.
+
+Above index.js file in our pyramid is the App.js file
+
+
+
+
 
 
 ## Back End Server Details

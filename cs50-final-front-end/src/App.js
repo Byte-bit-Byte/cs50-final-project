@@ -110,6 +110,8 @@ class App extends Component {
   }
 
   // Makes calls to the back end API to retrieve week images
+  // The idea for the fetch call was found from stack overflow
+  // https://stackoverflow.com/questions/46002113/javascript-reactjs-display-image-with-readablestream-as-source
   handleImage(id){
     if (id !== "Welcome") {
       id = `Week ${id}`;
@@ -141,14 +143,12 @@ class App extends Component {
   }  
 
   // Handles changes in the week selection drop down menu
-  // The idea for the fetch call was found from stack overflow
-  // https://stackoverflow.com/questions/46002113/javascript-reactjs-display-image-with-readablestream-as-source
   handleChange(event){
     this.handleImage(event.target.value);
     this.handleData(event.target.value);
   }
 
-  // Loads users data after sign in, given to relevant components
+  // Loads users data after sign in or register, given to relevant components
   loadUser = (data) => {
     this.setState({user: {
       id: data.id,
@@ -161,7 +161,7 @@ class App extends Component {
   // Controls the routing function for App to display specific components
   onRouteChange = (route) => {
     if (route === 'signout') {
-      this.setState(initialState)
+      this.setState(initialState);
     } else if (route === 'quiz') {
       this.setState({isSignedIn: true})
     }
@@ -207,7 +207,8 @@ class App extends Component {
 
         {/*Logic for displaying components based on route*/}
         {/*First check for home, then signin, then quiz,*/}
-        {/*then rank and if none of the above load register*/}
+        {/*then rank, then register and if none of the above*/}
+        {/*reload the home page with the welcome image*/}
         { route === 'home'
           ? <div className='tc'  style={{overflow: 'hidden'}}>
               <h1 className='f1'>THIS IS CS50 Lights</h1>
@@ -240,11 +241,19 @@ class App extends Component {
                         user={user}
                         server={this.props.server}
                       />
-                    : <Register 
-                        loadUser={this.loadUser} 
-                        onRouteChange={this.onRouteChange}
-                        server={this.props.server}
-                      />
+                    : (
+                        route === 'register'
+                        ? <Register 
+                          loadUser={this.loadUser} 
+                          onRouteChange={this.onRouteChange}
+                          server={this.props.server}
+                          />
+                        : (
+                          this.onRouteChange('home'),
+                          this.handleImage("Welcome")
+                          )
+
+                      )
                   )
                )
             )
