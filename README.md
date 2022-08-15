@@ -42,16 +42,25 @@ When a user completes and submits the quiz, the responses are sent to the back e
 The User can use the "Sign Out" function to log out from their credentials. They can also sign back in from the home page using the "Sign In" link if they already have an account created. On sign out, the user is redirected to the registration page by default.
 
 ### Front End App Structure
-In order to run the front end application Nodejs is required. By default after creating the React app using npm three folders are generated; node_modules, public and src. Most of the design for the application is done within src, I was able to add the application logo to the tab of the web page within the public folder, and the node_modules folder is managed by the package manager like npm or yarn. I'll discuss the src folder in more detail below. Within src there are two js files with their corresponding css files, as well as a components folder. 
+In order to run the front end application Nodejs is required. By default after creating the React app using npm three folders are generated; node_modules, public and src. Most of the design for the application is done within src, I was able to add the application logo to the tab of the web page within the public folder, and the node_modules folder is managed by the package manager like npm or yarn. I'll discuss the src folder in more detail below. Within src there are two js files with their corresponding css files, as well as a components folder. The package.json file contains all the neccessary details on the App like its name, version, dependencies, etc. 
 
-If I consider the application as a pyramid, i.e. with a wide base that tapers to the top, then the index.js can be considered as the lowest level for the front end application. The index file contains App.js and the is where the css library 'tachyons' is imported. Tachyons is used extensively through out the front end for styling and its use was inspired by the Zero To Mastery course mentioned earlier.
+If I consider the application as a pyramid, i.e. with a wide base that tapers to the top, then the index.js can be considered as the lowest level for the front end application. The index file contains App.js and is where the css library 'tachyons' is imported. Tachyons is used extensively through out the front end for styling and its use was inspired by the Zero To Mastery course mentioned earlier.
 
-Above index.js file in our pyramid is the App.js file
+Above index.js file in our pyramid is the App.js file. The App.js file collects all the components and contains the logic that decides which components to display and when to display them. It also controls the functions and states values for the application and determines what is available to specific components.
 
+Above the App.js file are all the components, to avoid making this any longer I will quickly go over them in a list:
+- Footer.js: Displays the footer of the page containing useful links. It is always displayed.
+- Logo.js: Displays the logo of the page. It is always displayed.
+- Navigation.js: Displays the navigation links for the App depending on if signed in or not. It is always displayed.
+- WeekSelect.js: Displays a drop down menu with values set for each week corresponding to images for that week. Displayed on home page.
+- WeekTemplate.js: A template for displaying a week with an image of the stage, the binary message and translation as well as a personal comment. Displayed on home page.
+- Signin.js: A component that displays a sign in form, then posts the data to the back end for validation before redirecting if succesful. Has its separate sign in page.
+- Register.js: A component that displays a registration form, then posts the data to the back end for validation before redirecting if succesful. Has its separate register page.
+- Quiz.js: A component that displays a quiz based on the question data it recieves from the application server. Has its separate quiz page.
+- Question.js:  A template for a single question that is displayed within Quiz.js. Displayed on quiz page.
+- Rank.js: Displays the top 10(if available) for scores on the quiz It also shows the logged in user's last 5 quiz attempt scores. Has its separate rank page.
 
-
-
-
+That is all for the front end of the section of the application.
 
 ## Back End Server Details
 
