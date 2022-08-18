@@ -63,5 +63,10 @@ Above the App.js file are all the components, to avoid making this any longer I 
 That is all for the front end of the section of the application.
 
 ## Back End Server Details
+The back end server for the application also requires Nodejs to be run. Similar to the front end, there is a directory called nodd_modules and a package.json file. The central file of the backend server structure is the serves.js file. In addition to this there are other directories such as the routes, service, dao which create the structure of the server. There is also the data.json file, questions.json file, the images directory, and the db directory which control or contain the data of the server. I will first discuss the data of the server, then the structure.
+
+The data of the server can be broadly categorized into two classes. First, the data stored in the database which is accessed using the knexjs library, and the data outside the database like that week data, the questions data, and the static images for each week.
+
+In this project I used postgres as my relational database. That is what is used in the knexfile.js which is within the db directory. If needed the directory would 
 
 ## Database Details
