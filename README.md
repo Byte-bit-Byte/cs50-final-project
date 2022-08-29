@@ -63,17 +63,75 @@ Above the App.js file are all the components, to avoid making this any longer I 
 That is all for the front end of the section of the application.
 
 ## Back End Server Details
-The back end server for the application also requires Nodejs to be run. Similar to the front end, there is a directory called node_modules and a package.json file. The central file of the backend server structure is the serves.js file. In addition to this there are other directories such as the routes, service, dao which create the structure of the server. There is also the data.json file, questions.json file, the images directory, and the db directory which control or contain the data of the server. I will first discuss the data of the server, then the structure.
+The back end server for the application also requires Nodejs to be run. Similar to the front end, there is a directory called node_modules and a package.json file. The central file of the backend server structure is the serves.js file. In addition to this there are other directories such as the routes, service, dao which create the structure of the server. There is also the data.json file, questions.json file, the images directory, and the db directory which control or contain the data of the server. I will first discuss the data of the server, then work my way up describing higher levels of the structure.
 
 The data of the server can be broadly categorized into two classes. First, the data stored in the database which is accessed using the knexjs library, and the data outside the database like that week data, the questions data, and the static images for each week.
 
 In this project I used postgres as my relational database. That is what is used in the knexfile.js which is within the db directory. This can be modified to a different relational database since the queries are made through knex and are indepent of postgres. Specific configuration might be required to make this work and can be found on the [knex website](https://knexjs.org/).
 
 Ignoring the auto-generated tables needed for knex to function, there are 3 tables in my database. They are: 
-- The users table which gathers all the basic information for each user
-- The login table which stores the user's login information (email and hashed password)
-- The quiz_attempts table which stores the score for every user quiz atttempt linked to their unique id
+- The **users table** which gathers all the basic information for each user
+- The **login table** which stores the user's login information (email and hashed password)
+- The **quiz_attempts table** which stores the score for every user quiz atttempt linked to their unique id
 
-All the data is a
+For the data outside the database:
+- The **data.json** contains the information for each week of CS50x 2022
+- The **questions.json** contains all the questions that would be asked of users taking the quiz in the front end of the application.
+
+All the data in the database is manipulated using the objects stored within the dao, data access directory. It contains the following files and thier functions:
+- *profile.js* which is provided a specific user id and retrives all the data on that user from the users table
+- *quiz.js* recieves the quiz attempts of a user with their id. It grades the quiz, updates the user's max score if neccessary along with their attempts. Then it adds a new entry into the quiz_attempts table. I acknowledge this should have been broken into two functions.
+- *rank.js* recieves the users data and then gets the last 5 quiz attemmpts for that user. It also queries the database in the users table for the 10 users with the highest max score gotten in the least attempts.
+- *register.js* recieves the email, name and passowrd of a new user. It hashes the password and stores it along with the email as new entry in the login table. Then it creates a separate entry in the users table using the name and email of the user.
+- *signin.js* recieves the an email and password for a user. It then checks if that email exists in the login table and if the stored hash corresponds to the hash of the provided password before returning the users details if both conditions are met.
+
+The data access objects in the dao directory are called by those in the service layer. These sometimes perform an intermediate step with the request data before moving it on to the data access layer. The objects within it are:
+- *profile.js* simply connects the controller layer to the data access layer with no added functionality.
+- *quiz.js* checks if the quiz submission is empty and returns an error if it is, or passes on the data to the data access layer if there actually are responses.
+- *rank.js* also connects the controller layer to the data access layer with no added functionality.
+- *register.js* makes sure a name, email and password were provided before calling on the data access layer.
+- *signin.js* makes sure an email and password were provided before calling on the data access layer.
+
+Above the service layer is the controller layer, with its objects stored in the controller directory. It handles the requests made to specific routes and returns the responses after processing. The controller objects used in this project are:
+- *profile.js* recieves the id of a user as a parameter in the request, then it passes this id on to the service layer for processing. Depending on the response from the service layer, it returns the user data or an error message.
+- *questions.js* parses the questions.json file and returns all the questions as response.
+- *quiz.js* recieves the quiz data which contains a users id and quiz responses. It passes this information to the service layer for processing, and returns the user quiz attempt if successful or an error if not.
+- *rank.js* recieves the user data in the request body and passes this on to the service layer. If there are no errors it recieves the needed rank data and user attempts back and returns this in the response.
+- *register.js* recieves the users details containing email, name and password in the request body. It passes this to the service layer for processing and returns the user data in a response if there are no errors.
+- *signin.js* recieves the users details containing email and password in the request body. It passes this to the service layer for processing and returns the user data in a response if there are no errors.
+- *weekData.js* recieves the id for a speccific week as a request parameter. It then reads the data.json file to get the data for that specific week and returns this in the response if there are no errors.
+
+The controllers determine specific behaviour when certain routes are accessed for the back end application. They are all controlled from the index.js file stored in the routes directory.
+Using express static the images for each week can be provided to the front end application when requested.
+In addition to that all the get and post request are routed to the neccessary controller to handle once they are made to the server application.
+
+The highest level of the back end application is the server.js file. It imports all the neccessary middle ware needed by the server application and it also initiates the port which the application will be listening for requests through. It defaults to port 8080 if the a different port is not provided as an environment variable.
 
 ## Database Details
+For more details on the 3 tables created in the database.
+
+First the **users table**:
+It contains 7 columns, the auto incrementing and unique user Id, the users name, email, number of quiz attempts, max score and the time stamps for when the user data was created and last updated. Many of this columns are auto filled when a new user is created with the name and email being the only thing initially needed. The quiz attempts and max score default to 0 and the time stamps are based on the computer's time.
+
+Next the **login table**:
+This contains only 3 colums, the auto incrementing unique id, the users email and a hash of the password that they registered with. It is references at registration and for every signin attempt.
+
+Lastly the **quiz_attempts table**:
+This contains an auto incrementing id to give a chronology to the attempts. The attempts with the higher id value happened more recently. This is so that when trying to get the 5 most recent attempts for a user it can be gotten by simply ordering the attempts. Next there is a user_id column that helps link each attempt to a unique user from the users table. Then there is the score column which just records the score for that quiz attempt. Lastly, there is the timestamps that record when the quiz attempt was made.
+
+# How to Run Locally
+1. Clone this repo
+2. Run ```cd cs50-final-project/cs50-final-front-end``` then ```npm install``` 
+(You will need to already have a package manager like npm or yarn for this to work)
+3. Run ```cd ../cs50-final-back-end``` then ```npm install``` 
+4. Run ``` nano db/knexfile.js ```
+5. Modify the following fields in the file
+    client: The name of the client you are using, visit [knex website](https://knexjs.org/) for a list of the clients
+    database: The name of the database you are running
+    user: The name of your database user
+    password: The database password
+    Save and Close the file.
+6. Run ```npm install knex -g```
+7. Run ```npm run migrate``` (This creates the tables needed for the project)
+8. Run ```npm start``` (This starts the server for the back end)
+9. Navigate back into the cs50-final-front-end directory and run ```npm start```

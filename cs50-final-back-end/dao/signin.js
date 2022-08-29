@@ -3,7 +3,7 @@
 const db = require('../db/db');
 const bcrypt = require('bcrypt-nodejs');
 
-// Recieves user data: emaila and password
+// Recieves user data: email and password
 // Checks to see if the email is in the login table
 // returns an error if it is not
 // Compares to saved hash if it is
