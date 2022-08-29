@@ -132,6 +132,6 @@ This contains an auto incrementing id to give a chronology to the attempts. The 
     password: The database password
     Save and Close the file.
 6. Run ```npm install knex -g```
-7. Run ```npm run migrate``` (This creates the tables needed for the project)
+7. Ensure you have your database server is running then run ```npm run migrate``` (This creates the tables needed for the project)
 8. Run ```npm start``` (This starts the server for the back end)
 9. Navigate back into the cs50-final-front-end directory and run ```npm start```
