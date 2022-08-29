@@ -1,6 +1,6 @@
 # CS50 LIGHTS - A CS50x FINAL PROJECT
 
-#### Video Demo:  <URL HERE>
+#### Video Demo:  https://www.youtube.com/watch?v=ooHuCdflr5Y
 #### Live Demo: https://cs50-lights.herokuapp.com/
 
 # Description:
